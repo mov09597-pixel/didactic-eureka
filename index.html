@@ -4,81 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TITAN | ملابس الجيم الفاخرة</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Cairo', sans-serif; }
-        .hero-video { filter: brightness(0.4); }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-black text-white">
+<body class="bg-black text-white overflow-x-hidden">
 
-    <!-- Header / Nav -->
-    <nav class="fixed w-full z-50 flex justify-between items-center px-10 py-6 bg-transparent backdrop-blur-md border-b border-white/10">
-        <div class="text-3xl font-black tracking-tighter uppercase">TITAN</div
-<ul class="hidden md:flex gap-8 font-medium">
-    <li><a href="index.html" class="hover:text-gray-400">الرئيسية</a></li>
-    <li><a href="shop.html" class="hover:text-gray-400">المتجر</a></li>
-    <li><a href="#about" class="hover:text-gray-400">عن البراند</a></li>
-</ul>                                                                             
-        <div class="flex gap-5">
-            <span>🔍</span>
-            <span>🛒</span>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 flex justify-between items-center px-6 md:px-10 py-6 transition-all duration-300" id="mainNav">
+        <div class="text-3xl font-black tracking-tighter uppercase">TITAN</div>
+        
+        <ul class="hidden md:flex gap-8 font-medium">
+            <li><a href="index.html" class="hover:text-gray-400 transition">الرئيسية</a></li>
+            <li><a href="shop.html" class="hover:text-gray-400 transition">المتجر</a></li>
+            <li><a href="#" class="hover:text-gray-400 transition">المجموعات</a></li>
+        </ul>
+
+        <div class="flex items-center gap-6">
+            <button onclick="toggleCart()" class="relative">
+                <span class="text-2xl">🛒</span>
+                <span class="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold px-1.5 rounded-full" id="cartCount">0</span>
+            </button>
+            <a href="admin.html" class="text-sm border border-white/30 px-3 py-1 rounded hover:bg-white hover:text-black transition">لوحة التحكم</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Video/Image -->
         <div class="absolute inset-0 z-0">
-            <!-- صورة توضيحية فخمة (يفضل استبدالها بفيديو) -->
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover hero-video" alt="Gym">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070" 
+                 class="w-full h-full object-cover opacity-50" alt="Gym Background">
         </div>
-        <div class="relative z-10 text-center">
-            <h1 class="text-6xl md:text-8xl font-black mb-6 uppercase italic">تخطَّ حدودك</h1>
-            <p class="text-xl md:text-2xl mb-8 font-light text-gray-300">تشكيلة "The Elite" الجديدة وصلت الآن</p>
-            <button class="bg-white text-black px-10 py-4 font-bold uppercase hover:bg-gray-200 transition">تسوق الآن</button>
-        </div>
-    </section>
 
-    <!-- Products Section -->
-    <section class="py-20 px-10 bg-zinc-950">
-        <h2 class="text-4xl font-bold mb-12 text-center">الأكثر مبيعاً</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-5xl md:text-8xl font-black mb-6 uppercase italic tracking-tighter">
+                تخطَّ حدودك <span class="text-gray-500">اليوم</span>
+            </h1>
+            <p class="text-lg md:text-2xl mb-10 font-light text-gray-300 max-w-2xl mx-auto">
+                تصاميم مصممة للأداء العالي والراحة القصوى. اكتشف مجموعة "The Elite" الجديدة.
+            </p>
             
-            <!-- Product 1 -->
-            <div class="group cursor-pointer">
-                <div class="overflow-hidden bg-zinc-900 aspect-[3/4]">
-                    <img src="https://images.unsplash.com/photo-1581009146145-b5ef03a74010?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h3 class="mt-4 font-bold text-lg">تيشرت الضغط "Performance"</h3>
-                <p class="text-gray-400">١,٢٠٠ ج.م</p>
+            <!-- Hero Buttons -->
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="shop.html" class="bg-white text-black px-12 py-4 font-bold uppercase hover:bg-gray-200 transition-all transform hover:scale-105 text-center">
+                    تسوق الآن
+                </a>
+                <a href="#featured" class="border border-white text-white px-12 py-4 font-bold uppercase hover:bg-white hover:text-black transition-all text-center">
+                    المجموعة الجديدة
+                </a>
             </div>
-
-            <!-- Product 2 -->
-            <div class="group cursor-pointer">
-                <div class="overflow-hidden bg-zinc-900 aspect-[3/4]">
-                    <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h3 class="mt-4 font-bold text-lg">بنطلون رياضي "Ultra-Flex"</h3>
-                <p class="text-gray-400">١,٨٠٠ ج.م</p>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="group cursor-pointer">
-                <div class="overflow-hidden bg-zinc-900 aspect-[3/4]">
-                    <img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <h3 class="mt-4 font-bold text-lg">سترة التدريب "Ghost"</h3>
-                <p class="text-gray-400">٢,٥٠٠ ج.م</p>
-            </div>
-
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-10 border-t border-white/10 text-center text-gray-500">
-        <p>© 2026 TITAN APPAREL. كل الحقوق محفوظة.</p>
-    </footer>
+    <!-- Cart Sidebar (مخفي) -->
+    <div id="cartSidebar" class="fixed top-0 right-0 w-full md:w-96 h-full bg-zinc-950 z-[60] translate-x-full transition-transform duration-500 border-l border-white/10 p-8 shadow-2xl">
+        <div class="flex justify-between items-center mb-10">
+            <h2 class="text-2xl font-black uppercase">سلة المشتريات</h2>
+            <button onclick="toggleCart()" class="text-3xl hover:text-gray-400">&times;</button>
+        </div>
+        <div id="cartItems" class="flex-1 overflow-y-auto">
+            <p class="text-gray-500 text-center mt-20 italic">السلة فارغة حالياً..</p>
+        </div>
+        <div class="mt-auto pt-10">
+            <div class="flex justify-between text-xl font-bold mb-6">
+                <span>الإجمالي:</span>
+                <span>0 ج.م</span>
+            </div>
+            <button class="w-full bg-white text-black py-4 font-black uppercase hover:tracking-widest transition-all">
+                إتمام الطلب
+            </button>
+        </div>
+    </div>
 
+    <!-- JavaScript لجعل الأزرار تعمل -->
+    <script>
+        // تغيير لون الناف بار عند السكرول
+        window.onscroll = function() {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-black/90', 'backdrop-blur-md', 'py-4');
+                nav.classList.remove('py-6');
+            } else {
+                nav.classList.remove('bg-black/90', 'backdrop-blur-md', 'py-4');
+                nav.classList.add('py-6');
+            }
+        };
+
+        // فتح وقفل السلة
+        function toggleCart() {
+            const cart = document.getElementById('cartSidebar');
+            cart.classList.toggle('translate-x-full');
+        }
+    </script>
 </body>
 </html>
