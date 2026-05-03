@@ -43,7 +43,7 @@ const upload = multer({
 });
 
 // 4. حماية الآدمن (Middleware)
-const ADMIN_TOKEN = "TITAN_2026_PRO"; // الباسورد الخاص بك
+const ADMIN_TOKEN = "911"; // الباسورد الخاص بك
 
 const authenticateAdmin = (req, res, next) => {
     const token = req.headers['admin-token'];
