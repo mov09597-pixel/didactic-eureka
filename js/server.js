@@ -1,32 +1,14 @@
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose'); // قاعدة البيانات
+// كود تجريبي للحماية في server.js
+const isAdmin = (req, res, next) => {
+    const adminPassword = req.headers['admin-token'];
+    if (adminPassword === 'TITAN_SECRET_2026') { // ده باسورد افتراضي
+        next();
+    } else {
+        res.status(403).send('غير مسموح لك بالدخول');
+    }
+};
 
-app.use(express.json());
-app.use(express.static('public')); // فولدر الموقع بتاعك
-
-// اتصال بقاعدة البيانات (MongoDB)
-mongoose.connect('mongodb://localhost/titan_db');
-
-// موديل المنتج
-const Product = mongoose.model('Product', {
-    name: String,
-    price: Number,
-    image: String,
-    category: String
+// مسار الدخول للوحة التحكم
+app.get('/admin-panel', isAdmin, (req, res) => {
+    res.sendFile(__dirname + '/admin.html');
 });
-
-// API لجلب المنتجات
-app.get('/api/products', async (req, res) => {
-    const products = await Product.find();
-    res.json(products);
-});
-
-// API لإضافة منتج (من لوحة التحكم)
-app.post('/api/products', async (req, res) => {
-    const newProduct = new Product(req.body);
-    await newProduct.save();
-    res.send({ message: "Product Added!" });
-});
-
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
