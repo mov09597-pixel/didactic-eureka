@@ -1,0 +1,31 @@
+<body class="bg-zinc-900 text-white flex">
+    <!-- Sidebar -->
+    <aside class="w-64 h-screen bg-black p-6 border-r border-white/10">
+        <div class="text-2xl font-bold mb-10">TITAN ADMIN</div>
+        <nav class="space-y-4">
+            <a href="#" class="block p-3 bg-white/10 rounded">الإحصائيات</a>
+            <a href="#" class="block p-3 hover:bg-white/5">المنتجات</a>
+            <a href="#" class="block p-3 hover:bg-white/5">الطلبات</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-10">
+        <div class="grid grid-cols-3 gap-6 mb-10">
+            <div class="glass p-6 rounded-xl">
+                <p class="text-gray-400">إجمالي المبيعات</p>
+                <h3 class="text-3xl font-bold">٥٤,٠٠٠ ج.م</h3>
+            </div>
+            <!-- المزيد من الكروت -->
+        </div>
+
+        <div class="glass p-8 rounded-xl">
+            <h2 class="text-xl font-bold mb-6">إضافة منتج جديد</h2>
+            <form id="add-product-form" class="space-y-4">
+                <input type="text" placeholder="اسم المنتج" class="w-full bg-transparent border border-white/20 p-3 rounded">
+                <input type="number" placeholder="السعر" class="w-full bg-transparent border border-white/20 p-3 rounded">
+                <button type="submit" class="bg-blue-600 px-8 py-3 rounded font-bold">حفظ المنتج</button>
+            </form>
+        </div>
+    </main>
+</body>
