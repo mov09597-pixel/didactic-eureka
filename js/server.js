@@ -6,19 +6,20 @@ const cors = require('cors');
 
 const app = express();
 
-// إعدادات أساسية
+// --- 1. الإعدادات الأساسية (Middlewares) ---
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // تأكد أن ملفات الـ HTML في فولدر اسمه public
+app.use(express.static('public')); 
 app.use('/assets/images', express.static('public/assets/images'));
 
-// 1. الاتصال بقاعدة البيانات (MongoDB)
-// استبدل الرابط برابط MongoDB Atlas الخاص بك لاحقاً
+// --- 2. الاتصال بقاعدة البيانات (MongoDB) ---
 mongoose.connect('mongodb://localhost:27017/titan_db')
-    .then(() => console.log('✅ Connected to MongoDB'))
+    .then(() => console.log('✅ Connected to MongoDB (Titan DB)'))
     .catch(err => console.error('❌ Database connection error:', err));
 
-// 2. تعريف شكل المنتج في قاعدة البيانات (Schema)
+// --- 3. تعريف نماذج البيانات (Models) ---
+
+// نموذج المنتجات (Products)
 const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     price: { type: Number, required: true },
@@ -26,10 +27,21 @@ const productSchema = new mongoose.Schema({
     category: String,
     createdAt: { type: Date, default: Date.now }
 });
-
 const Product = mongoose.model('Product', productSchema);
 
-// 3. إعدادات رفع الصور (Multer)
+// نموذج الطلبات (Orders)
+const orderSchema = new mongoose.Schema({
+    customerName: String,
+    phoneNumber: String,
+    address: String,
+    items: Array,
+    totalPrice: Number,
+    status: { type: String, default: 'Pending' }, 
+    createdAt: { type: Date, default: Date.now }
+});
+const Order = mongoose.model('Order', orderSchema);
+
+// --- 4. إعدادات رفع الصور (Multer) ---
 const storage = multer.diskStorage({
     destination: './public/assets/images/',
     filename: (req, file, cb) => {
@@ -39,10 +51,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ 
     storage: storage,
-    limits: { fileSize: 5000000 }, // حد أقصى 5 ميجا للصورة
+    limits: { fileSize: 5000000 }, 
 });
 
-// 4. حماية الآدمن (Middleware)
+// --- 5. حماية الآدمن (Admin Middleware) ---
 const ADMIN_TOKEN = "911"; // الباسورد الخاص بك
 
 const authenticateAdmin = (req, res, next) => {
@@ -54,7 +66,7 @@ const authenticateAdmin = (req, res, next) => {
     }
 };
 
-// --- الـ API Routes ---
+// --- 6. الـ API Routes (المنتجات) ---
 
 // جلب كل المنتجات للمتجر
 app.get('/api/products', async (req, res) => {
@@ -69,6 +81,8 @@ app.get('/api/products', async (req, res) => {
 // إضافة منتج جديد (للآدمن فقط)
 app.post('/api/products', authenticateAdmin, upload.single('productImage'), async (req, res) => {
     try {
+        if (!req.file) return res.status(400).json({ message: "Please upload an image" });
+        
         const newProduct = new Product({
             name: req.body.name,
             price: req.body.price,
@@ -92,8 +106,44 @@ app.delete('/api/products/:id', authenticateAdmin, async (req, res) => {
     }
 });
 
-// تشغيل السيرفر
+// --- 7. الـ API Routes (الطلبات) ---
+
+// استقبال طلب جديد من العميل
+app.post('/api/orders', async (req, res) => {
+    try {
+        const newOrder = new Order({
+            customerName: req.body.customerName,
+            phoneNumber: req.body.phoneNumber,
+            address: req.body.address,
+            items: req.body.items,
+            totalPrice: req.body.totalPrice
+        });
+        await newOrder.save();
+        res.status(201).json({ message: "تم استلام طلبك بنجاح، سنتواصل معك قريباً!" });
+    } catch (err) {
+        res.status(400).json({ message: "خطأ في تسجيل الطلب: " + err.message });
+    }
+});
+
+// جلب كل الطلبات (للآدمن لمشاهدتها في الـ Dashboard)
+app.get('/api/orders', authenticateAdmin, async (req, res) => {
+    try {
+        const orders = await Order.find().sort({ createdAt: -1 });
+        res.json(orders);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// --- 8. تشغيل السيرفر ---
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+    console.log(`
+    🚀 TITAN SERVER READY
+    -------------------------------
+    🔗 Main URL: http://localhost:${PORT}
+    📸 Images: http://localhost:${PORT}/assets/images
+    🔑 Admin Token: ${ADMIN_TOKEN}
+    -------------------------------
+    `);
 });
