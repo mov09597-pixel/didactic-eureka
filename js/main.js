@@ -1,22 +1,18 @@
-<script src="https://unpkg.com/scrollreveal"></script>
-<script>
-    // تغيير شكل الـ Navbar عند السكرول
-    window.addEventListener('scroll', function() {
-        const nav = document.querySelector('nav');
-        if (window.scrollY > 50) {
-            nav.classList.add('bg-black', 'py-4');
-            nav.classList.remove('bg-transparent', 'py-6');
-        } else {
-            nav.classList.add('bg-transparent', 'py-6');
-            nav.classList.remove('bg-black', 'py-4');
-        }
-    });
+async function loadProducts() {
+    const response = await fetch('/api/products');
+    const products = await response.json();
+    
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = products.map(p => `
+        <div class="group">
+            <div class="relative overflow-hidden">
+                <img src="${p.image}" class="w-full h-[400px] object-cover transition duration-700 group-hover:scale-110">
+                <button class="absolute bottom-0 w-full bg-white text-black py-3 translate-y-full group-hover:translate-y-0 transition">إضافة للسلة</button>
+            </div>
+            <h3 class="mt-4 font-bold uppercase">${p.name}</h3>
+            <p class="text-zinc-400">${p.price} ج.م</p>
+        </div>
+    `).join('');
+}
 
-    // تأثير ظهور العناصر تدريجياً
-    ScrollReveal().reveal('.group', { 
-        delay: 200, 
-        distance: '50px',
-        origin: 'bottom',
-        interval: 100 
-    });
-</script>
+if(document.getElementById('product-grid')) loadProducts();
