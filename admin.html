@@ -1,31 +1,97 @@
-<body class="bg-zinc-900 text-white flex">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #09090b; }
+        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body class="flex text-white">
+
     <!-- Sidebar -->
-    <aside class="w-64 h-screen bg-black p-6 border-r border-white/10">
-        <div class="text-2xl font-bold mb-10">TITAN ADMIN</div>
-        <nav class="space-y-4">
-            <a href="#" class="block p-3 bg-white/10 rounded">الإحصائيات</a>
-            <a href="#" class="block p-3 hover:bg-white/5">المنتجات</a>
-            <a href="#" class="block p-3 hover:bg-white/5">الطلبات</a>
+    <aside class="w-72 h-screen sticky top-0 bg-black border-l border-white/10 p-8">
+        <h1 class="text-3xl font-black mb-12 tracking-tighter">TITAN <span class="text-red-600">HQ</span></h1>
+        <nav class="space-y-6">
+            <button onclick="showSection('stats')" class="flex items-center gap-4 w-full text-right hover:text-red-500 transition"><span class="w-2 h-2 bg-red-600 rounded-full"></span> الإحصائيات</button>
+            <button onclick="showSection('products')" class="flex items-center gap-4 w-full text-right hover:text-red-500 transition"><span class="w-2 h-2 bg-gray-600 rounded-full"></span> إدارة المنتجات</button>
+            <button onclick="showSection('orders')" class="flex items-center gap-4 w-full text-right hover:text-red-500 transition"><span class="w-2 h-2 bg-gray-600 rounded-full"></span> الطلبات الجديدة</button>
+            <button onclick="showSection('settings')" class="flex items-center gap-4 w-full text-right hover:text-red-500 transition"><span class="w-2 h-2 bg-gray-600 rounded-full"></span> إعدادات المتجر</button>
         </nav>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-10">
-        <div class="grid grid-cols-3 gap-6 mb-10">
-            <div class="glass p-6 rounded-xl">
-                <p class="text-gray-400">إجمالي المبيعات</p>
-                <h3 class="text-3xl font-bold">٥٤,٠٠٠ ج.م</h3>
+    <main class="flex-1 p-12 overflow-y-auto">
+        
+        <!-- القسم 1: الإحصائيات -->
+        <div id="stats-section" class="admin-section">
+            <h2 class="text-4xl font-bold mb-10">نظرة عامة</h2>
+            <div class="grid grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl">
+                    <p class="text-gray-500 text-sm">إجمالي المبيعات</p>
+                    <p class="text-4xl font-black mt-2">١٢٥,٥٠٠ ج.م</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl">
+                    <p class="text-gray-500 text-sm">عدد الطلبات</p>
+                    <p class="text-4xl font-black mt-2">٤٣</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl">
+                    <p class="text-gray-500 text-sm">زوار اليوم</p>
+                    <p class="text-4xl font-black mt-2">١,٢٠٠</p>
+                </div>
             </div>
-            <!-- المزيد من الكروت -->
         </div>
 
-        <div class="glass p-8 rounded-xl">
-            <h2 class="text-xl font-bold mb-6">إضافة منتج جديد</h2>
-            <form id="add-product-form" class="space-y-4">
-                <input type="text" placeholder="اسم المنتج" class="w-full bg-transparent border border-white/20 p-3 rounded">
-                <input type="number" placeholder="السعر" class="w-full bg-transparent border border-white/20 p-3 rounded">
-                <button type="submit" class="bg-blue-600 px-8 py-3 rounded font-bold">حفظ المنتج</button>
-            </form>
+        <!-- القسم 2: إدارة المنتجات -->
+        <div id="products-section" class="admin-section hidden">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-4xl font-bold">إدارة المنتجات</h2>
+                <button class="bg-white text-black px-6 py-2 font-bold rounded-lg hover:bg-gray-200">+ إضافة منتج</button>
+            </div>
+            
+            <div class="glass-card rounded-xl overflow-hidden">
+                <table class="w-full text-right">
+                    <thead class="bg-white/5">
+                        <tr>
+                            <th class="p-4">المنتج</th>
+                            <th class="p-4">السعر</th>
+                            <th class="p-4">المخزون</th>
+                            <th class="p-4">الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-product-list">
+                        <!-- هنا تظهر المنتجات من الـ Backend -->
+                        <tr class="border-t border-white/5">
+                            <td class="p-4">تيشرت Elite Compression</td>
+                            <td class="p-4">١,٢٠٠ ج.م</td>
+                            <td class="p-4">١٥ قطعة</td>
+                            <td class="p-4">
+                                <button class="text-blue-400 ml-4">تعديل</button>
+                                <button class="text-red-500">حذف</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </main>
+
+    <script>
+        // تبديل الأقسام
+        function showSection(sectionId) {
+            document.querySelectorAll('.admin-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(sectionId + '-section').classList.remove('hidden');
+        }
+
+        // حماية بسيطة بالـ JavaScript (لا تغني عن حماية السيرفر)
+        const pass = prompt("أدخل كلمة مرور الآدمن للدخول:");
+        if (pass !== "TITAN2026") {
+            alert("غير مسموح لك بالدخول!");
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
+</html>
