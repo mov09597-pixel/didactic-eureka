@@ -1,16 +1,65 @@
-<!-- استخدم نفس الـ Header من index.html -->
-<section class="pt-32 px-10">
-    <div class="flex justify-between items-end mb-12">
-        <h1 class="text-5xl font-black uppercase italic">The Collection</h1>
-        <div class="flex gap-4">
-            <select class="bg-black border border-white/20 p-2 text-sm">
-                <option>الأحدث</option>
-                <option>السعر: من الأقل للأعلى</option>
-            </select>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر تايتان | TITAN SHOP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #050505; color: white; }
+        .product-card:hover img { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <!-- Nav -->
+    <nav class="p-6 flex justify-between items-center border-b border-white/5 backdrop-blur-md sticky top-0 z-50 bg-black/50">
+        <a href="index.html" class="text-2xl font-black italic">TITAN</a>
+        <div class="flex gap-6">
+            <a href="index.html" class="hover:text-gray-400">الرئيسية</a>
+            <button onclick="toggleCart()" class="relative">
+                🛒 <span id="cartCount" class="absolute -top-2 -right-2 bg-white text-black text-[10px] px-1 rounded-full">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="py-16 text-center">
+        <h1 class="text-5xl font-black uppercase italic tracking-tighter">THE ELITE COLLECTION</h1>
+        <p class="text-gray-500 mt-4 font-light">ملابس مصممة للأبطال فقط</p>
+    </header>
+
+    <!-- Products Grid -->
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- المنتجات هتظهر هنا أوتوماتيك من السيرفر -->
+        </div>
+    </main>
+
+    <!-- سلة المشتريات (نفس كود السلة اللي في index) -->
+    <div id="cartSidebar" class="fixed top-0 right-0 w-80 h-full bg-zinc-950 z-[60] translate-x-full transition-transform duration-300 border-l border-white/10 p-6 shadow-2xl">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-xl font-bold italic">سلة المشتريات</h2>
+            <button onclick="toggleCart()" class="text-2xl">&times;</button>
+        </div>
+        <div id="cartItems" class="space-y-4 overflow-y-auto h-[60vh]"></div>
+        <div class="absolute bottom-10 left-0 w-full px-6">
+            <div class="flex justify-between mb-4 font-bold border-t border-white/10 pt-4">
+                <span>الإجمالي:</span>
+                <span id="cartTotal">0 ج.م</span>
+            </div>
+            <a href="checkout.html" class="block w-full bg-white text-black text-center py-4 font-black uppercase hover:tracking-widest transition-all">إتمام الطلب</a>
         </div>
     </div>
-    
-    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <!-- المنتجات هيتم سحبها من الـ Backend هنا -->
-    </div>
-</section>
+
+    <!-- Script لربط البيانات -->
+    <script src="js/main.js"></script>
+    <script>
+        // دالة قفل وفتح السلة لصفحة المتجر
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('translate-x-full');
+        }
+    </script>
+</body>
+</html>
