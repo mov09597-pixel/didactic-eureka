@@ -42,19 +42,20 @@
         <div class="text-3xl font-black italic tracking-tighter site-name">TITAN</div>
         <div class="flex gap-4">
             <button class="text-xl">👤</button>
-            <button class="text-xl relative" onclick="toggleCart()">
+            <button class="text-xl relative">
                 👜 <span id="cartCount" class="absolute -top-1 -right-1 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
             </button>
         </div>
     </nav>
 
-    <!-- 3. قسم الهيرو (Hero Section) -->
-    <header class="relative h-[80vh] bg-zinc-900 flex items-center justify-center overflow-hidden">
-        <!-- فيديو الخلفية -->
-        <video autoplay muted loop playsinline class="absolute w-full h-full object-cover opacity-60">
-            <source src="assets/gym-video.mp4" type="video/mp4">
-        </video>
+    <!-- 3. قسم الهيرو (Hero Section) مع صورة الخلفية الجديدة -->
+    <header class="relative h-[80vh] bg-black flex items-center justify-center overflow-hidden">
+        <!-- الصورة اللي دمجناها -->
+        <img src="assets/hero-bg.jpg" class="absolute w-full h-full object-cover opacity-70" alt="Titan Background">
         
+        <!-- طبقة تغميق خفيفة عشان الزراير تظهر بوضوح -->
+        <div class="absolute inset-0 bg-black/20"></div>
+
         <!-- أزرار التوجيه -->
         <div class="relative z-10 flex flex-col md:flex-row gap-4">
             <a href="shop.html?cat=men" class="border-2 border-white text-white px-12 py-3 font-bold uppercase hover:bg-white hover:text-black transition btn-sharp text-center">Shop Men</a>
@@ -73,17 +74,15 @@
     <section class="py-16 px-6 bg-white">
         <h2 class="text-2xl font-black text-center mb-10 uppercase tracking-tight">Shop by collection</h2>
         <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto">
-            <!-- مجموعة Pumpcovers -->
             <div class="text-center group cursor-pointer">
-                <div class="bg-gray-100 aspect-[4/5] mb-4 overflow-hidden relative">
-                    <img src="assets/collection1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="bg-gray-100 aspect-[4/5] mb-4 overflow-hidden relative border border-gray-100">
+                    <img src="assets/collection1.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Pumpcovers">
                 </div>
                 <h3 class="font-bold uppercase text-xs md:text-sm tracking-widest">HIM PUMPCOVERS</h3>
             </div>
-            <!-- مجموعة Sleeveless -->
             <div class="text-center group cursor-pointer">
-                <div class="bg-gray-100 aspect-[4/5] mb-4 overflow-hidden relative">
-                    <img src="assets/collection2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                <div class="bg-gray-100 aspect-[4/5] mb-4 overflow-hidden relative border border-gray-100">
+                    <img src="assets/collection2.jpg" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Sleeveless">
                 </div>
                 <h3 class="font-bold uppercase text-xs md:text-sm tracking-widest">SLEEVELESS SHIRTS</h3>
             </div>
@@ -97,10 +96,8 @@
             <a href="shop.html" class="border-b-2 border-black pb-1 text-sm font-black uppercase hover:text-zinc-500 transition">View all</a>
         </div>
         
-        <!-- شبكة المنتجات -->
         <div id="new-arrivals-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            
-            <!-- نموذج منتج (Sold Out) -->
+            <!-- نموذج منتج -->
             <div class="relative group cursor-pointer">
                 <span class="absolute top-3 right-3 bg-white text-[9px] px-2 py-1 z-10 font-black uppercase shadow-sm">Sold out</span>
                 <div class="aspect-[3/4] bg-gray-200 mb-4 relative overflow-hidden">
@@ -114,12 +111,9 @@
                 <h3 class="text-[11px] font-bold uppercase mb-1 tracking-tight">Real Tree Pants</h3>
                 <p class="text-sm font-medium text-zinc-600 font-mono italic">LE 1,250.00</p>
             </div>
-
-            <!-- كرر هذا القسم للمنتجات الأخرى -->
         </div>
     </section>
 
-    <!-- JS الخاص بالوظائف -->
     <script src="js/main.js"></script>
 </body>
 </html>
