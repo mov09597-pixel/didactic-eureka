@@ -1,103 +1,40 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MONSTER | ملابس الجيم الفاخرة</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="bg-black text-white overflow-x-hidden">
+<!-- Top Announcement Bar -->
+<div class="bg-black text-white text-[10px] py-2 text-center font-bold tracking-widest uppercase border-b border-white/10">
+    Free Shipping on Orders Over 2000 LE • New Drop Available Now
+</div>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 flex justify-between items-center px-6 md:px-10 py-6 transition-all duration-300" id="mainNav">
-        <div class="text-3xl font-black tracking-tighter uppercase">MONSTER</div>
-        
-        <ul class="hidden md:flex gap-8 font-medium">
-            <li><a href="index.html" class="hover:text-gray-400 transition">الرئيسية</a></li>
-            <li><a href="shop.html" class="hover:text-gray-400 transition">المتجر</a></li>
-            <li><a href="#" class="hover:text-gray-400 transition">المجموعات</a></li>
-        </ul>
-
-        <div class="flex items-center gap-6">
-            <button onclick="toggleCart()" class="relative">
-                <span class="text-2xl">🛒</span>
-                <span class="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold px-1.5 rounded-full" id="cartCount">0</span>
-            </button>
-            <a href="admin.html" class="text-sm border border-white/30 px-3 py-1 rounded hover:bg-white hover:text-black transition">لوحة التحكم</a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background Video/Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2070" 
-                 class="w-full h-full object-cover opacity-50" alt="Gym Background">
-        </div>
-
-        <div class="relative z-10 text-center px-4">
-            <h1 class="text-5xl md:text-8xl font-black mb-6 uppercase italic tracking-tighter">
-                تخطَّ حدودك <span class="text-gray-500">اليوم</span>
-            </h1>
-            <p class="text-lg md:text-2xl mb-10 font-light text-gray-300 max-w-2xl mx-auto">
-                تصاميم مصممة للأداء العالي والراحة القصوى. اكتشف مجموعة "The Elite" الجديدة.
-            </p>
-            
-            <!-- Hero Buttons -->
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="shop.html" class="bg-white text-black px-12 py-4 font-bold uppercase hover:bg-gray-200 transition-all transform hover:scale-105 text-center">
-                    تسوق الآن
-                </a>
-                <a href="#featured" class="border border-white text-white px-12 py-4 font-bold uppercase hover:bg-white hover:text-black transition-all text-center">
-                    المجموعة الجديدة
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cart Sidebar (مخفي) -->
-    <div id="cartSidebar" class="fixed top-0 right-0 w-full md:w-96 h-full bg-zinc-950 z-[60] translate-x-full transition-transform duration-500 border-l border-white/10 p-8 shadow-2xl">
-        <div class="flex justify-between items-center mb-10">
-            <h2 class="text-2xl font-black uppercase">سلة المشتريات</h2>
-            <button onclick="toggleCart()" class="text-3xl hover:text-gray-400">&times;</button>
-        </div>
-        <div id="cartItems" class="flex-1 overflow-y-auto">
-            <p class="text-gray-500 text-center mt-20 italic">السلة فارغة حالياً..</p>
-        </div>
-        <div class="mt-auto pt-10">
-            <div class="flex justify-between text-xl font-bold mb-6">
-                <span>الإجمالي:</span>
-                <span>0 ج.م</span>
-            </div>
-            <button class="w-full bg-white text-black py-4 font-black uppercase hover:tracking-widest transition-all">
-                إتمام الطلب
-            </button>
-        </div>
+<!-- Navigation -->
+<nav class="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="flex gap-4">
+        <button class="text-xl">☰</button>
+        <button class="text-xl">🔍</button>
     </div>
+    <!-- اللوجو في النص زي الصورة -->
+    <div class="text-3xl font-black italic tracking-tighter site-name">TITAN</div>
+    <div class="flex gap-4">
+        <button class="text-xl">👤</button>
+        <button class="text-xl relative" onclick="toggleCart()">
+            👜 <span id="cartCount" class="absolute -top-1 -right-1 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        </button>
+    </div>
+</nav>
 
-    <!-- JavaScript لجعل الأزرار تعمل -->
-    <script>
-        // تغيير لون الناف بار عند السكرول
-        window.onscroll = function() {
-            const nav = document.getElementById('mainNav');
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-black/90', 'backdrop-blur-md', 'py-4');
-                nav.classList.remove('py-6');
-            } else {
-                nav.classList.remove('bg-black/90', 'backdrop-blur-md', 'py-4');
-                nav.classList.add('py-6');
-            }
-        };
+<!-- Hero Section (Video or Image Background) -->
+<header class="relative h-[80vh] bg-zinc-900 flex items-center justify-center overflow-hidden">
+    <!-- حط فيديو الجيم هنا -->
+    <video autoplay muted loop class="absolute w-full h-full object-cover opacity-60">
+        <source src="assets/gym-video.mp4" type="video/mp4">
+    </video>
+    
+    <div class="relative z-10 flex gap-4">
+        <a href="shop.html?cat=men" class="border-2 border-white text-white px-8 py-3 font-bold hover:bg-white hover:text-black transition">Shop Men</a>
+        <a href="shop.html?cat=women" class="border-2 border-white text-white px-8 py-3 font-bold hover:bg-white hover:text-black transition">Shop Women</a>
+    </div>
+</header>
 
-        // فتح وقفل السلة
-        function toggleCart() {
-            const cart = document.getElementById('cartSidebar');
-            cart.classList.toggle('translate-x-full');
-        }
-    </script>
-</body>
-</html>
+<!-- Scrolling Text (الروح بتاعة Designed for the grind) -->
+<div class="bg-white border-y border-gray-200 py-4 overflow-hidden whitespace-nowrap">
+    <div class="inline-block animate-marquee text-sm font-black uppercase tracking-tighter mx-4">
+        DESIGNED FOR THE GRIND • TITAN ATHLETICS • PUSH YOUR LIMITS • NO EXCUSES • 
+    </div>
+</div>
