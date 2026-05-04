@@ -1,24 +1,72 @@
-/* تأثير لمعان (Glow) على الأزرار */
-button {
-    position: relative;
-    overflow: hidden;
+/* 1. الخطوط الأساسية وتنسيق الصفحة */
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* لمنع التمرير الأفقي بسبب الأنميشن */
+    letter-spacing: -0.02em; /* تعطي طابع الـ High-end Brands */
 }
 
-button:hover {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+/* 2. أنميشن الشريط المتحرك (Marquee) */
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }
 
-/* شكل السكرول بار (Scrollbar) عشان يبقى شيك */
+.animate-marquee {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 25s linear infinite;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+/* 3. تأثيرات المنتجات (Product Card) */
+.product-card-img {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card-container:hover .product-card-img {
+    transform: scale(1.08); /* تكبير بسيط وفخم عند الوقوف على الصورة */
+}
+
+/* تأثير الـ Sold Out (أبيض وأسود) */
+.sold-out-gray {
+    filter: grayscale(100%);
+    transition: filter 0.5s ease;
+}
+
+.product-card-container:hover .sold-out-gray {
+    filter: grayscale(0%); /* الصورة تلون عند الوقوف عليها */
+}
+
+/* 4. تنسيق الزراير (Sharp Edges) */
+.btn-titan {
+    border-radius: 0 !important; /* إلغاء الحواف الدائرية تماماً */
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+/* 5. تخصيص شريط التمرير (Scrollbar) ليكون فخماً */
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
+
 ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
     background: #000;
 }
-::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
+
+/* 6. تنسيق اسم الموقع (Logo) */
+.site-name {
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -3px;
+    text-transform: uppercase;
 }
